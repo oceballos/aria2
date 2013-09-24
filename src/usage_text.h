@@ -1,4 +1,4 @@
-/* <!-- copyright */
+  /* <!-- copyright */
 /*
  * aria2 - The high speed download utility
  *
@@ -271,6 +271,8 @@
     "                              If false is specified, the .torrent file is\n" \
     "                              downloaded to the disk, but is not parsed as a\n" \
     "                              torrent and its contents are not downloaded.")
+#define TEXT_CDNVIDEO_URI						\
+
 #define TEXT_LISTEN_PORT                                                \
   _(" --listen-port=PORT...        Set TCP port number for BitTorrent downloads.\n" \
     "                              Multiple ports can be specified by using ',',\n" \

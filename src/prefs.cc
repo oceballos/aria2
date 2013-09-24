@@ -554,4 +554,15 @@ const Pref* PREF_METALINK_PREFERRED_PROTOCOL = makePref("metalink-preferred-prot
 const Pref* PREF_METALINK_ENABLE_UNIQUE_PROTOCOL = makePref("metalink-enable-unique-protocol");
 const Pref* PREF_METALINK_BASE_URI = makePref("metalink-base-uri");
 
+
+/**
+* CDNVideo related preferences
+*/
+// values: a string that your file system recognizes as a file name.
+const Pref* PREF_CDNVIDEO_FILE = makePref("cdnvideo-file");
+// values: a string
+const Pref* PREF_CDNVIDEO_VERSION = makePref("cdnvideo-version");
+// values: a string.
+const Pref* PREF_CDNVIDEO_BASE_URI = makePref("cdnvideo-base-uri");
+
 } // namespace aria2
