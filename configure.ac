@@ -464,6 +464,9 @@ else
   AM_CONDITIONAL([ENABLE_BITTORRENT], false)
 fi
 
+AC_DEFINE([ENABLE_CDNVIDEO],[1],
+	    [Defined to true.])
+
 if (test "x$have_libxml2" = "xyes" || test "x$have_libexpat" = "xyes") &&
    test "x$enable_metalink" = "xyes"; then
   AC_DEFINE([ENABLE_METALINK], [1],

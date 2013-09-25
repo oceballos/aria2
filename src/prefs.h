@@ -489,6 +489,16 @@ extern const Pref* PREF_METALINK_ENABLE_UNIQUE_PROTOCOL;
 // values: a string
 extern const Pref* PREF_METALINK_BASE_URI;
 
+/**
+* CDNVideo related preferences
+*/
+// values: a string that your file system recognizes as a file name.
+extern const Pref* PREF_CDNVIDEO_FILE;
+// values: a string
+extern const Pref* PREF_CDNVIDEO_VERSION;
+// values: a string.
+extern const Pref* PREF_CDNVIDEO_BASE_URI;
+
 } // namespace aria2
 
 #endif // D_PREFS_H

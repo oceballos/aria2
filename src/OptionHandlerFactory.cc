@@ -2140,6 +2140,7 @@ std::vector<OptionHandler*> OptionHandlerFactory::createOptionHandlers()
 #endif // ENABLE_BITTORRENT
   // Metalink Specific Options
 #ifdef ENABLE_METALINK
+
   {
     OptionHandler* op(new ParameterOptionHandler
                       (PREF_FOLLOW_METALINK,
@@ -2228,6 +2229,20 @@ std::vector<OptionHandler*> OptionHandlerFactory::createOptionHandlers()
     handlers.push_back(op);
   }
 #endif // ENABLE_METALINK
+
+#ifdef ENABLE_CDNVIDEO
+  {
+    OptionHandler* op(new DefaultOptionHandler
+                      (PREF_CDNVIDEO_BASE_URI,
+                       TEXT_CDNVIDEO_BASE_URI,
+                       NO_DEFAULT_VALUE));
+    op->addTag(TAG_METALINK);
+    op->setInitialOption(true);
+    op->setChangeGlobalOption(true);
+    handlers.push_back(op);
+  }
+#endif
+
   // Version Option
   {
     OptionHandler* op(new DefaultOptionHandler
