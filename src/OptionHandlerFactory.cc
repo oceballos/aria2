@@ -2234,11 +2234,15 @@ std::vector<OptionHandler*> OptionHandlerFactory::createOptionHandlers()
   {
     OptionHandler* op(new DefaultOptionHandler
                       (PREF_CDNVIDEO_BASE_URI,
-                       TEXT_CDNVIDEO_BASE_URI,
-                       NO_DEFAULT_VALUE));
-    op->addTag(TAG_METALINK);
+                       TEXT_CDNVIDEO_URI,
+                       NO_DEFAULT_VALUE,
+                       A2STR::NIL,
+                       OptionHandler::OPT_ARG,
+                       'Y'));
+    op->addTag(TAG_CDNVIDEO);
     op->setInitialOption(true);
     op->setChangeGlobalOption(true);
+    op->setChangeOptionForReserved(true);
     handlers.push_back(op);
   }
 #endif

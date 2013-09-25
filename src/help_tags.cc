@@ -49,6 +49,7 @@ const char* HELP_TAG_NAMES[] = {
   "#ftp",
   "#metalink",
   "#bittorrent",
+  "#cdnvideo",
   "#cookie",
   "#hook",
   "#file",
