@@ -272,7 +272,8 @@
     "                              downloaded to the disk, but is not parsed as a\n" \
     "                              torrent and its contents are not downloaded.")
 #define TEXT_CDNVIDEO_URI						\
-
+  _(" -Y --cdnvideo-url=CDNVIDEO_URI	Set the video to download from de URI = CDNVIDEO_URI,\n" \
+    "                                   works with youtube videos.")
 #define TEXT_LISTEN_PORT                                                \
   _(" --listen-port=PORT...        Set TCP port number for BitTorrent downloads.\n" \
     "                              Multiple ports can be specified by using ',',\n" \
