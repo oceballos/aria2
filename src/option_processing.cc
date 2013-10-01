@@ -333,8 +333,13 @@ error_code::Value option_processing(Option& op, bool standalone,
       showUsage("", oparser, global::cerr());
       return error_code::UNKNOWN_ERROR;
     }
+    else{
+    #ifdef ENABLE_CDNVIDEO
+      A2_LOG_DEBUG(fmt("Quiero saber cuando se usa esto lala"));
+    #endif
+    }
     //string i="prueba"; 
-     A2_LOG_DEBUG(fmt("Quiero saber cuando se usa esto lala"));
+    //A2_LOG_DEBUG(fmt("Quiero saber cuando se usa esto lala"));
   }
   if(standalone && op.getAsBool(PREF_DAEMON)) {
     if(daemon(0, 0) < 0) {
