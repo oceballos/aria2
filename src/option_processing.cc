@@ -59,6 +59,12 @@
 #include "BufferedFile.h"
 #include "console.h"
 #include "array_fun.h"
+
+#include "fmt.h"
+#include "Logger.h"
+#include "LogFactory.h"
+#include "string.h"
+
 #ifndef HAVE_DAEMON
 #include "daemon.h"
 #endif // !HAVE_DAEMON
@@ -314,7 +320,7 @@ error_code::Value option_processing(Option& op, bool standalone,
   }
   if(standalone &&
      !op.getAsBool(PREF_ENABLE_RPC) &&
-#ifdef ENABLE_BITTORRENT
+#ifdef ENABLE_BITTORRENT     
      op.blank(PREF_TORRENT_FILE) &&
 #endif // ENABLE_BITTORRENT
 #ifdef ENABLE_METALINK
@@ -327,6 +333,8 @@ error_code::Value option_processing(Option& op, bool standalone,
       showUsage("", oparser, global::cerr());
       return error_code::UNKNOWN_ERROR;
     }
+    //string i="prueba"; 
+     A2_LOG_DEBUG(fmt("Quiero saber cuando se usa esto lala"));
   }
   if(standalone && op.getAsBool(PREF_DAEMON)) {
     if(daemon(0, 0) < 0) {
