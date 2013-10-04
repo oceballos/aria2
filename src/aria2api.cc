@@ -297,6 +297,8 @@ int addMetalink(Session* session,
                 const KeyVals& options,
                 int position)
 {
+  
+  
 #ifdef ENABLE_METALINK
   auto& e = session->context->reqinfo->getDownloadEngine();
   std::shared_ptr<Option> requestOption(new Option(*e->getOption()));

@@ -60,6 +60,10 @@ public:
   // Returns true if ProtocolDetector thinks uri is a path of Metalink XML
   // file, otherwise return false.
   bool guessMetalinkFile(const std::string& uri) const;
+  
+  // Return true if ProtocolDetector thinks uri is a youtube or vimeo 
+  // video address, otherwise return false.
+  bool guessCDNCideo(const std::string& uri) const;
 };
 
 } // namespace aria2
