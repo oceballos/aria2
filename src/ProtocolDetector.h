@@ -63,7 +63,7 @@ public:
   
   // Return true if ProtocolDetector thinks uri is a youtube or vimeo 
   // video address, otherwise return false.
-  bool guessCDNCideo(const std::string& uri) const;
+  bool guessCDNVideo(const std::string& uri) const;
 };
 
 } // namespace aria2
