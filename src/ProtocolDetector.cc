@@ -102,9 +102,9 @@ bool ProtocolDetector::guessMetalinkFile(const std::string& uri) const
   }
 }
 
-bool ProtocolDetector::guessCDNVideo(const std::string& uri) cont
+bool ProtocolDetector::guessCDNVideo(const std::string& uri) const
 {
-  
+  return false;
 }
 
 } // namespace aria2
