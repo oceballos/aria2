@@ -54,6 +54,9 @@
 #include "uri.h"
 #include "UDPTrackerRequest.h"
 #include "SocketCore.h"
+#include <string>
+using std::string;
+using namespace std;
 
 namespace aria2 {
 
@@ -363,8 +366,17 @@ void DefaultBtAnnounce::processUDPTrackerResponse
   incomplete_ = reply->leechers;
   A2_LOG_DEBUG(fmt("Incomplete:%d", reply->leechers));
   if(!btRuntime_->isHalt() && btRuntime_->lessThanMinPeers()) {
+
+    std::string arregloudp[5000];
+    int tudp = 0;
+
+
     for(auto & elem : reply->peers) {
       peerStorage_->addPeer(std::make_shared<Peer>(elem.first, elem.second));
+
+            arregloudp[tudp]= elem.first;
+            std::string ipudp = arregloudp[tudp];
+
     }
   }
 }
