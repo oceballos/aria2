@@ -44,8 +44,14 @@
 #include "uri.h"
 #include "BufferedFile.h"
 #ifdef ENABLE_BITTORRENT
-# include "bittorrent_helper.h"
+#include "bittorrent_helper.h"
 #endif // ENABLE_BITTORRENT
+#ifdef ENABLE_CDNVIDEO
+#include "fmt.h"
+#include "Logger.h"
+#include "LogFactory.h"
+#include "string.h"
+#endif
 
 namespace aria2 {
 
@@ -100,6 +106,24 @@ bool ProtocolDetector::guessMetalinkFile(const std::string& uri) const
   } else {
     return false;
   }
+}
+
+bool ProtocolDetector::guessCDNVideo(const std::string& uri) const
+{
+  std::string systemQuery = "sh src/CDNVideoURLparser.sh ";
+  systemQuery+=uri;
+  systemQuery+= "> isYoutube.txt";
+  system(systemQuery.c_str());
+  
+  
+  
+  if(true){
+    system("rm isYoutube.txt");
+    return true;
+  }
+  else
+  system("rm isYoutube.txt");
+  return false;
 }
 
 } // namespace aria2

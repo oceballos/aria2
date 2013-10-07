@@ -32,40 +32,8 @@
  * files in the program, then also delete it here.
  */
 /* copyright --> */
-#ifndef D_PROTOCOL_DETECTOR_H
-#define D_PROTOCOL_DETECTOR_H
+/* File created by Osvaldo Ceballos O.
+* oaceballos@gmail.com
+*/
 
-#include "common.h"
-#include <string>
 
-namespace aria2 {
-
-class ProtocolDetector {
-public:
-  ProtocolDetector();
-
-  ~ProtocolDetector();
-
-  // Returns true if uri is http(s)/ftp, otherwise returns false.
-  bool isStreamProtocol(const std::string& uri) const;
-
-  // Returns true if ProtocolDetector thinks uri is a path of BitTorrent
-  // metainfo file, otherwise returns false.
-  bool guessTorrentFile(const std::string& uri) const;
-
-  // Returns true if ProtocolDetector thinks uri is BitTorrent Magnet link.
-  // magnet:?xt=urn:btih:<info-hash>...
-  bool guessTorrentMagnet(const std::string& uri) const;
-
-  // Returns true if ProtocolDetector thinks uri is a path of Metalink XML
-  // file, otherwise return false.
-  bool guessMetalinkFile(const std::string& uri) const;
-  
-  // Return true if ProtocolDetector thinks uri is a youtube or vimeo 
-  // video address, otherwise return false.
-  bool guessCDNVideo(const std::string& uri) const;
-};
-
-} // namespace aria2
-
-#endif // D_PROTOCOL_DETECTOR_H
