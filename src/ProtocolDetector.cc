@@ -110,11 +110,19 @@ bool ProtocolDetector::guessMetalinkFile(const std::string& uri) const
 
 bool ProtocolDetector::guessCDNVideo(const std::string& uri) const
 {
-  //string regex="";
-  istream stream;
-  if(){
-    
+  std::string systemQuery = "sh src/CDNVideoURLparser.sh ";
+  systemQuery+=uri;
+  systemQuery+= "> isYoutube.txt";
+  system(systemQuery.c_str());
+  
+  
+  
+  if(true){
+    system("rm isYoutube.txt");
+    return true;
   }
+  else
+  system("rm isYoutube.txt");
   return false;
 }
 
