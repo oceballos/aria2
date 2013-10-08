@@ -44,8 +44,14 @@
 #include "uri.h"
 #include "BufferedFile.h"
 #ifdef ENABLE_BITTORRENT
-# include "bittorrent_helper.h"
+#include "bittorrent_helper.h"
 #endif // ENABLE_BITTORRENT
+#ifdef ENABLE_CDNVIDEO
+#include "fmt.h"
+#include "Logger.h"
+#include "LogFactory.h"
+#include "string.h"
+#endif
 
 namespace aria2 {
 
@@ -104,6 +110,11 @@ bool ProtocolDetector::guessMetalinkFile(const std::string& uri) const
 
 bool ProtocolDetector::guessCDNVideo(const std::string& uri) const
 {
+  //string regex="";
+  istream stream;
+  if(){
+    
+  }
   return false;
 }
 
