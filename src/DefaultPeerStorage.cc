@@ -125,11 +125,14 @@ bool DefaultPeerStorage::addPeer(const std::shared_ptr<Peer>& peer)
   if(peerListSize >= maxPeerListSize_) {
     deleteUnusedPeer(peerListSize-maxPeerListSize_+1);
   }
+
   unusedPeers_.push_front(peer);
   addUniqPeer(peer);
   A2_LOG_DEBUG(fmt("Now unused peer list contains %lu peers",
                    static_cast<unsigned long>(unusedPeers_.size())));
+
   return true;
+
 }
 
 
@@ -174,9 +177,6 @@ void DefaultPeerStorage::addPeer(const std::vector<std::shared_ptr<Peer> >& peer
       arreglo1[t]=peer->getIPAddress();
       string ip = arreglo1[t];
 
-
-//    ifstream f;
-//    string s;
     int sum =0;
     string arreglo[1000];
     int cont = 0; // para llevar el numero del arreglo
@@ -184,6 +184,8 @@ void DefaultPeerStorage::addPeer(const std::vector<std::shared_ptr<Peer> >& peer
     string sub_str;
     string num;
     string temp;
+
+ //   system("mkdir tracker");
 
     string hola2 = "traceroute -UnAm 10 "+ip+" | awk '{print $3}'  > trace3.txt"; //ping google.com -c 3
     system (hola2.c_str());
@@ -318,6 +320,7 @@ mit = trans.str();
 string filtradas = "split -l "+mit+" saordenadas.txt filtradas";
 system(filtradas.c_str());
 
+  A2_LOG_NOTICE(fmt("cree fltradas"));
 
 /////////////////////////////////////Aqui termina el cut de saordenadas/////////////////////
 
@@ -329,9 +332,14 @@ system(filtradas.c_str());
   eoi = peers.end(); itr != eoi && added < addMax; ++itr) {
   const std::shared_ptr<Peer>& peer = *itr;
 
+  A2_LOG_NOTICE(fmt("Acabo de entrar a mi for super loco"));
+
     string temp2;
     ifstream myfile2;
+//    myfile2.open("filtradasaa.txt");
+
     myfile2.open("filtradasaa.txt");
+
     string arreglo2[(int)addMax];
 //int n = (sizeof(arreglo2)/sizeof(arreglo2[0]))/2;
     int cont2 = 0; // para llevar el numero del arreglo
@@ -347,14 +355,22 @@ while(myfile2.eof()) // mientras NO sea el final del arc hivo
               }
             }
 
-            if(peer->getIPAddress().c_str() == arreglo2[u]){
+            for(int u = 0; u< (int)addMax ; u++){
 
+              A2_LOG_NOTICE(fmt("Despues de entrar a mi for mi peer es %s", peer->getIPAddress().c_str()));
+              A2_LOG_NOTICE(fmt("Despues de entrar a mi for mi peer es %s", arreglo2[u].c_str()));
+
+            if(peer->getIPAddress().c_str() == arreglo2[u]){ //asi estaba antes y no funcionó
+ //               if(arreglo1[t] == arreglo2[u]){
                 //agrego al peer a la lista
+                A2_LOG_DEBUG(fmt("Acabo de añadir the real un peer %s", arreglo2[u].c_str()));
                   unusedPeers_.push_front(peer);
                   addUniqPeer(peer);
                   ++added;
                    u++;  /////////////aQUI ESATA DE NUEVO ESTE CONTADORRR
+
             }
+            } //cierra el ultimo for
 
     } //cerrar el foor
 ////////////////////// AQUI TERMINAR MI FOR
