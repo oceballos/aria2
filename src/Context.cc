@@ -168,8 +168,8 @@ Context::Context(bool standalone,
   
 #ifdef ENABLE_CDNVIDEO
   ProtocolDetector dt;
-  if(dt.guessCDNVideo()){
-    
+  if(dt.guessCDNVideo(op->get(PREF_CDNVIDEO_BASE_URI))){
+    A2_LOG_NOTICE("Si reconoció la url");
   }
 #endif
   LogFactory::setLogFile(op->get(PREF_LOG));
