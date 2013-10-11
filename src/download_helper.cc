@@ -476,6 +476,7 @@ bool createRequestGroupFromUriListParser
   // Since result already contains some entries, we cache the size of
   // it. Later, we use this value to determine RequestGroup is
   // actually created.
+  
   size_t num = result.size();
   while(uriListParser->hasNext()) {
     std::vector<std::string> uris;
