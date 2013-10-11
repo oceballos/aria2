@@ -169,7 +169,8 @@ Context::Context(bool standalone,
 #ifdef ENABLE_CDNVIDEO
   ProtocolDetector dt;
   if(dt.guessCDNVideo(op->get(PREF_CDNVIDEO_BASE_URI))){
-    A2_LOG_NOTICE("Si reconoció la url");
+    A2_LOG_NOTICE("Se reconoce la URL de youtube");
+    
   }
 #endif
   LogFactory::setLogFile(op->get(PREF_LOG));
