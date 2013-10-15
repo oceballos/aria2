@@ -57,6 +57,20 @@
 #include <string>
 using std::string;
 using namespace std;
+#include "findudp.cpp"
+#include <cstdlib>
+#include <stdio.h>
+#include <fstream>
+#include <iostream>
+using std::cout;
+using std::endl;
+#include <cstring>
+#include <sstream>
+using std::cout;
+using std::cin;
+using std::ifstream;
+#include <vector>
+#include<sstream>
 
 namespace aria2 {
 
@@ -372,14 +386,211 @@ void DefaultBtAnnounce::processUDPTrackerResponse
 
 
     for(auto & elem : reply->peers) {
-      peerStorage_->addPeer(std::make_shared<Peer>(elem.first, elem.second));
-
+//
             arregloudp[tudp]= elem.first;
             std::string ipudp = arregloudp[tudp];
+//
+//
+    int sumudp =0;
+    string arregloudp[1000];
+    int contudp = 0; // para llevar el numero del arreglo
+//
+    string sub_strudp;
+    string numudp;
+    string tempudp;
+//
+// //   system("mkdir tracker");
+//
+    string hola2udp = "traceroute -UnAm 10 "+ipudp+" | awk '{print $3}'  > trace3udp.txt"; //ping google.com -c 3
+    system (hola2udp.c_str());
+//
+    ifstream myfileudp;
+    myfileudp.open("trace3udp.txt");
+//
+//
+    if(myfileudp.is_open())//si el archivo esta abierto
+    {
+    while(!myfileudp.eof()) // mientras NO sea el final del arc hivo
+    {
+   myfileudp >> tempudp;
+   if(tempudp != "*" && tempudp != "[*" && tempudp != "[*]"){
+   arregloudp[contudp] = tempudp;
+   contudp++;
+              }
+            }
+        vector <string> auxudp;
+        for(int i=0;i<contudp;i++){
+        if(arregloudp[1]!=arregloudp[i]){//CON QUE SOLO COMPARE UNO CON EL RESTO SE CUANTOS DIFERENTES HAY
+		if(i==0){
+			sumudp++;
+			auxudp.push_back(arregloudp[i]);//AGREGO EL NUMERO A LA LISTA DE VISTOS
+		}
+		else if( !findudp(auxudp , arregloudp[i]) ){
+                        sumudp++;
+                        auxudp.push_back(arregloudp[i]);//AGREGO EL NUMERO A LA LISTA DE VISTOS
+		}
+        }
+                                }
+	}
 
-    }
-  }
+	                if(sumudp<6){
+
+                stringstream streamudp; //Esto es para pasar de int a string //
+                string sumaudp;
+                streamudp << sumudp;
+                sumaudp= streamudp.str();
+
+
+
+                    string hola3udp = "echo "+sumaudp+"#"+ipudp+" >> saudp.txt";
+                    system (hola3udp.c_str());
+
+                    peerStorage_->addPeer(std::make_shared<Peer>(elem.first, elem.second));
+//                    A2_LOG_DEBUG(fmt("Now unused peer list contains %lu peers",
+//                    static_cast<unsigned long>(unusedPeers_.size())));
+
+                A2_LOG_DEBUG(fmt("Acabo de añadir un peer UDPTRACKER con menos/igual 5 SA %s.", ipudp.c_str()));
+//                        A2_LOG_DEBUG(fmt("Acabo de añadir un peer UDPTRACKER con menos/igual 5 SA."));
+                   tudp++;
+//                   }
+//
+//      A2_LOG_DEBUG(fmt(MSG_ADDING_PEER,
+//                       peer->getIPAddress().c_str(), peer->getPort()));
+
+   }
+
 }
+}
+}
+//////////////////////////////////////////// Esto es para ordenar
+
+//  ifstream myfile4udp;
+//  int c_linesudp = 0, iudp= 0, numudp, *numsudp;
+//  string lineudp, *linesudp;
+//  char numeroudp[1000], basuraudp[1000];
+//  myfile4udp.open ("saudp.txt");
+//  while(getline(myfile4udp, lineudp))
+//  {
+//  	c_linesudp++;
+//  }
+//  myfile4udp.close();
+//  linesudp = new string[c_linesudp];
+//  numsudp = new int[c_linesudp];
+//  myfile4udp.open ("saudp.txt");
+//  for(int i = 0; i < c_linesudp; i++)
+//  {
+//  	getline(myfile4udp, lineudp);
+//  	linesudp[i] = lineudp;
+//  	sscanf(lineudp.c_str(), "%[^#]#%[^\n]\n", numeroudp, basuraudp);
+//  	numsudp[i] = atoi(numeroudp);
+//  }
+//  myfile4udp.close();
+//  for(int i = 0; i < c_linesudp - 1; i++)
+//  	for(int j = i + 1; j < c_linesudp; j++)
+//  	{
+//  		if(numsudp[i] > numsudp[j])
+//  		{
+//  			int auxudp = numsudp[i];
+//  			numsudp[i] = numsudp[j];
+//  			numsudp[j] = auxudp;
+//
+//  			string aux2udp = linesudp[i];
+//  			linesudp[i] = linesudp[j];
+//  			linesudp[j] = aux2udp;
+//  		}
+//  	}
+//
+//  ofstream fileudp;
+//  fileudp.open("sa3udp.txt");
+//  for(int i = 0; i < c_linesudp; i++)
+//  fileudp << linesudp[i] << endl;
+//  fileudp.close();
+//
+//  system("awk -F# '{print $2}' sa3.txt > saordenadasudp.txt");
+//
+//
+///////////////////////////////////////Aqui termina el ordenamiento/////////////////////
+//
+/////////////////////////////Aqui corto por la mitad mi saordenadas/////////
+//
+//int cont4udp = 0; // para llevar el numero del arreglo
+//string temp4udp;
+//////int tam = sizeof arreglo/sizeof arreglo[0];
+//
+//ifstream myfileudp;
+//myfileudp.open("saordenadasudp.txt");
+//
+//
+//system("wc -l saordenadasudp.txt | awk {'print $1'} > nlineasudp.txt");
+//
+//
+//ifstream nlineasudp;
+//string arregloudp[1];
+//nlineasudp.open("nlineasudp.txt");
+//if(nlineasudp.is_open()) { //si el archivo esta abierto
+//while(!nlineasudp.eof()) // mientras NO sea el final del arc hivo
+//   nlineasudp >> temp4udp;
+//   arregloudp[cont4udp] = temp4udp;
+//}
+//   string nudp = arregloudp[0];
+//   int enteroudp = atoi(nudp.c_str());
+//    int mitadudp = (enteroudp/2);
+////    cout <<mitadudp<<endl;
+//
+//stringstream transudp;
+//string mitudp;
+//transudp << mitadudp;
+//mitudp = transudp.str();
+//
+//string filtradasudp = "split -l "+mitudp+" saordenadasudp.txt filtradasudp";
+//system(filtradasudp.c_str());
+
+
+/////////////////////////////////////Aqui termina el cut de saordenadas/////////////////////
+
+/////////////////////////AQUI EMPIEZA MI FOR
+
+///////////////////***********************************************************************
+//  int uudp=0; ///////////////////OSVALDO PARA QUE ERA ESTE CONTADOR TE ACUERDAS?????????????????????
+//  for(std::vector<std::shared_ptr<Peer> >::const_iterator itr = peers.begin(),
+//  eoi = peers.end(); itr != eoi && added < addMax; ++itr) {
+//  const std::shared_ptr<Peer>& peer = *itr;
+//
+//    string temp2udp;
+//    ifstream myfile2;
+//    myfile2udp.open("filtradasaaudp.txt");
+//    string arreglo2udp[5000];
+////int n = (sizeof(arreglo2)/sizeof(arreglo2[0]))/2;
+//    int cont2udp = 0; // para llevar el numero del arreglo
+//
+//
+//if(myfile2udp.is_open())//si el archivo esta abierto
+//{
+//while(myfile2udp.eof()) // mientras NO sea el final del arc hivo
+//{
+//   myfile2udp >> temp2udp;
+//   arreglo2udp[cont2udp] = temp2udp;
+//   cont2udp++;
+//              }
+//            }
+//
+//            if(peer->getIPAddress().c_str() == arreglo2udp[uudp]){
+//
+//                //agrego al peer a la lista  // esto es del peerstorage
+//                    unusedPeers_.push_front(peer);
+//                    addUniqPeer(peer);
+//                    A2_LOG_DEBUG(fmt("Now unused peer list contains %lu peers",
+//                    static_cast<unsigned long>(unusedPeers_.size())));
+//                    uudp++;
+//                    return true;
+//            }
+//
+//    } //cerrar el foor
+////////////////////// AQUI TERMINAR MI FOR
+
+////////////////////////////////////////AQUI TERMINA MI PROGRAMA!! //////
+//  }
+//}
 
 bool DefaultBtAnnounce::noMoreAnnounce() {
   return (trackers_ == 0 &&
