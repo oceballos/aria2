@@ -19,6 +19,9 @@ fi
 # /all/ of its work.
 youtube-dl -o "[%(upload_date)s][%(id)s] %(title)s (by %(uploader)s).%(ext)s" --get-url --get-filename --cookies=${COOKIES} "$@" > ${TMPDIR}/video_data
 
+#for i in $(seq 1 7) ; do cat video_data ; done
+
+
 while read URL && read FILENAME
 do
 	CLEANED_FILENAME=`echo "${FILENAME}" | tail -n 1 | tr ":\"" ";'" | tr -d "\\\/*?<>|"`

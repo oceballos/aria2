@@ -51,6 +51,8 @@
 #include "Logger.h"
 #include "LogFactory.h"
 #include "string.h"
+#include <fstream>
+#include <iostream>
 #endif
 
 namespace aria2 {
@@ -108,22 +110,33 @@ bool ProtocolDetector::guessMetalinkFile(const std::string& uri) const
   }
 }
 
+//este es mio
 bool ProtocolDetector::guessCDNVideo(const std::string& uri) const
 {
   std::string systemQuery = "sh src/CDNVideoURLparser.sh ";
+  A2_LOG_NOTICE(fmt("URI de video: %s",uri.c_str()));
   systemQuery+=uri;
   systemQuery+= "> isYoutube.txt";
-  system(systemQuery.c_str());
+  system(systemQuery.c_str()); 
   
+  std::string ytAnswer;
   
+  std::ifstream ANSfile;
+  ANSfile.open("isYoutube.txt");  
+  getline(ANSfile,ytAnswer); 
+  A2_LOG_NOTICE(fmt("respuesta guessCDNVideo: %s",ytAnswer.c_str()));
   
-  if(true){
+  if(ytAnswer=="OK"){
+    ANSfile.close();
     system("rm isYoutube.txt");
     return true;
   }
-  else
-  system("rm isYoutube.txt");
-  return false;
+  else{
+    ANSfile.close();
+    system("rm isYoutube.txt");
+    return false;
+  }
+  
 }
 
 } // namespace aria2

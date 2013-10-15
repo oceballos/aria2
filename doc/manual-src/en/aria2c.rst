@@ -839,6 +839,13 @@ BitTorrent Specific Options
   The path to the ".torrent" file.  You are not required to use this
   option because you can specify ".torrent" files without :option:`--torrent-file <-T>`.
 
+CDNVideo Specific Options
+~~~~~~~~~~~~~~~~~~~~~~~~~
+.. option:: -Y=<YOUTUBE_VIDEO_URI>
+
+  Youtube videos downloader, by given the correct browser type syntax of the video URI, you can
+  download your videos in segmented mode. 
+
 Metalink Specific Options
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 .. option:: --follow-metalink=true|false|mem
