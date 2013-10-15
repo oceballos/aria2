@@ -147,7 +147,7 @@ void DefaultPeerStorage::addPeer(const std::vector<std::shared_ptr<Peer> >& peer
   size_t added = 0;
   size_t addMax = std::min(maxPeerListSize_, MAX_PEER_LIST_UPDATE);
 
-  string arreglo1[(int)addMax];
+  std::string arreglo1[9000];
   int t = 0;
 
 
@@ -172,209 +172,118 @@ void DefaultPeerStorage::addPeer(const std::vector<std::shared_ptr<Peer> >& peer
     } else {
 
 
-///////////////////////////EMPIEZA MI PROGRAMA!!! ///////////////
-
-      arreglo1[t]=peer->getIPAddress();
-      string ip = arreglo1[t];
-
-    int sum =0;
-    string arreglo[1000];
-    int cont = 0; // para llevar el numero del arreglo
-
-    string sub_str;
-    string num;
-    string temp;
-
- //   system("mkdir tracker");
-
-    string hola2 = "traceroute -UnAm 10 "+ip+" | awk '{print $3}'  > trace3.txt"; //ping google.com -c 3
+/////////////////////////////EMPIEZA MI PROGRAMA!!! ///////////////
+//
+//      arreglo1[t]=peer->getIPAddress();
+//      string ip = arreglo1[t];
+//
+//    int sum =0;
+// //   string arreglo[9000];
+//    int cont = 0; // para llevar el numero del arreglo
+//
+//    string sub_str;
+//    string num;
+//    string temp;
+//
+// //   system("mkdir tracker");
+//
+    string hola2 = "echo hola > trace3.txt"; //ping google.com -c 3
     system (hola2.c_str());
-
-    ifstream myfile;
-    myfile.open("trace3.txt");
-
-
-    if(myfile.is_open())//si el archivo esta abierto
-    {
-    while(!myfile.eof()) // mientras NO sea el final del arc hivo
-    {
-   myfile >> temp;
-   if(temp != "*" && temp != "[*" && temp != "[*]"){
-   arreglo[cont] = temp;
-   cont++;
-              }
-            }
-        vector <string> aux;
-        for(int i=0;i<cont;i++){
-        if(arreglo[1]!=arreglo[i]){//CON QUE SOLO COMPARE UNO CON EL RESTO SE CUANTOS DIFERENTES HAY
-		if(i==0){
-			sum++;
-			aux.push_back(arreglo[i]);//AGREGO EL NUMERO A LA LISTA DE VISTOS
-		}
-		else if( !find(aux , arreglo[i]) ){
-                        sum++;
-                        aux.push_back(arreglo[i]);//AGREGO EL NUMERO A LA LISTA DE VISTOS
-		}
-        }
-                                }
-	}
-
-                stringstream stream; //Esto es para pasar de int a string //
-                string suma;
-                stream << sum;
-                suma= stream.str();
-
-                    string hola3 = "echo "+suma+"#"+ip+" >> sa.txt";
-                    system (hola3.c_str());
-
-////////////////AQUI CREO EL .TXT CON LAS IPS  Y LAS SUMAS DE SIS AUTONOMOS!!
-                    t++;
-
-      A2_LOG_DEBUG(fmt(MSG_ADDING_PEER,
-                       peer->getIPAddress().c_str(), peer->getPort()));
-
-    }
-
-}
-
-//////////////////////////////////////////// Esto es para ordenar
-
-  ifstream myfile4;
-  int c_lines = 0, i = 0, num, *nums;
-  string line, *lines;
-  char numero[1000], basura[1000];
-  myfile4.open ("sa.txt");
-  while(getline(myfile4, line))
-  {
-  	c_lines++;
-  }
-  myfile4.close();
-  lines = new string[c_lines];
-  nums = new int[c_lines];
-  myfile4.open ("sa.txt");
-  for(int i = 0; i < c_lines; i++)
-  {
-  	getline(myfile4, line);
-  	lines[i] = line;
-  	sscanf(line.c_str(), "%[^#]#%[^\n]\n", numero, basura);
-  	nums[i] = atoi(numero);
-  }
-  myfile4.close();
-  for(int i = 0; i < c_lines - 1; i++)
-  	for(int j = i + 1; j < c_lines; j++)
-  	{
-  		if(nums[i] > nums[j])
-  		{
-  			int aux = nums[i];
-  			nums[i] = nums[j];
-  			nums[j] = aux;
-
-  			string aux2 = lines[i];
-  			lines[i] = lines[j];
-  			lines[j] = aux2;
-  		}
-  	}
-
-  ofstream file;
-  file.open("sa3.txt");
-  for(int i = 0; i < c_lines; i++)
-  file << lines[i] << endl;
-  file.close();
-
-  system("awk -F# '{print $2}' sa3.txt > saordenadas.txt");
-
-
-/////////////////////////////////////Aqui termina el ordenamiento/////////////////////
-
-///////////////////////////Aqui corto por la mitad mi saordenadas/////////
-
-int cont4 = 0; // para llevar el numero del arreglo
-string temp4;
-////int tam = sizeof arreglo/sizeof arreglo[0];
-
-ifstream myfile;
-myfile.open("saordenadas.txt");
-
-
-system("wc -l saordenadas.txt | awk {'print $1'} > nlineas.txt");
-
-
-ifstream nlineas;
-string arreglo[1];
-nlineas.open("nlineas.txt");
-if(nlineas.is_open()) { //si el archivo esta abierto
-while(!nlineas.eof()) // mientras NO sea el final del arc hivo
-   nlineas >> temp4;
-   arreglo[cont4] = temp4;
-}
-   string n = arreglo[0];
-   int entero = atoi(n.c_str());
-    int mitad = (entero/2);
-    cout <<mitad<<endl;
-
-stringstream trans;
-string mit;
-trans << mitad;
-mit = trans.str();
-
-string filtradas = "split -l "+mit+" saordenadas.txt filtradas";
-system(filtradas.c_str());
-
-  A2_LOG_NOTICE(fmt("cree fltradas"));
-
-/////////////////////////////////////Aqui termina el cut de saordenadas/////////////////////
-
-/////////////////////////AQUI EMPIEZA MI FOR
-
-///////////////////***********************************************************************
-  int u=0; ///////////////////OSVALDO PARA QUE ERA ESTE CONTADOR TE ACUERDAS?????????????????????
-  for(std::vector<std::shared_ptr<Peer> >::const_iterator itr = peers.begin(),
-  eoi = peers.end(); itr != eoi && added < addMax; ++itr) {
-  const std::shared_ptr<Peer>& peer = *itr;
-
-  A2_LOG_NOTICE(fmt("Acabo de entrar a mi for super loco"));
-
-    string temp2;
+//
+//    ifstream myfile;
+//    myfile.open("trace3.txt");
+//
+//
+//    if(myfile.is_open())//si el archivo esta abierto
+//    {
+//    while(!myfile.eof()) // mientras NO sea el final del arc hivo
+//    {
+//   myfile >> temp;
+//   if(temp != "*" && temp != "[*" && temp != "[*]"){
+//   arreglo1[cont] = temp;
+//   cont++;
+//              }
+//            }
+//        vector <string> aux;
+//        for(int i=0;i<cont;i++){
+//        if(arreglo1[1]!=arreglo1[i]){//CON QUE SOLO COMPARE UNO CON EL RESTO SE CUANTOS DIFERENTES HAY
+//		if(i==0){
+//			sum++;
+//			aux.push_back(arreglo1[i]);//AGREGO EL NUMERO A LA LISTA DE VISTOS
+//		}
+//		else if( !find(aux , arreglo1[i]) ){
+//                        sum++;
+//                        aux.push_back(arreglo1[i]);//AGREGO EL NUMERO A LA LISTA DE VISTOS
+//		}
+//        }
+//                                }
+//	}
+//
+//        if(sum<6){
+//
+////                stringstream stream; //Esto es para pasar de int a string //
+////                string suma;
+////                stream << sum;
+////                suma= stream.str();
+////
+////                string hola7 = "echo "+suma+"#"+ip+" >> saconlasuma.txt";
+////                system (hola7.c_str());
+//
+//                    string hola3 = "echo "+ip+" >> sa.txt";
+//                    system (hola3.c_str());
+//
+//////////////////AQUI CREO EL .TXT CON LAS IPS  Y LAS SUMAS DE SIS AUTONOMOS!!
+//
+////
+                     string temp2;
     ifstream myfile2;
-//    myfile2.open("filtradasaa.txt");
-
-    myfile2.open("filtradasaa.txt");
-
-    string arreglo2[(int)addMax];
-//int n = (sizeof(arreglo2)/sizeof(arreglo2[0]))/2;
-    int cont2 = 0; // para llevar el numero del arreglo
-
+    myfile2.open("trace3.txt");
+     int cont2 = 0;
+    string arreglo2[9000];
 
 if(myfile2.is_open())//si el archivo esta abierto
 {
-while(myfile2.eof()) // mientras NO sea el final del arc hivo
+while(!myfile2.eof()) // mientras NO sea el final del arc hivo
 {
    myfile2 >> temp2;
-   arreglo2[cont2] = temp2;
+   arreglo2[cont2] =  temp2;
    cont2++;
-              }
-            }
 
-            for(int u = 0; u< (int)addMax ; u++){
+   }
+   }
 
-              A2_LOG_NOTICE(fmt("Despues de entrar a mi for mi peer es %s", peer->getIPAddress().c_str()));
-              A2_LOG_NOTICE(fmt("Despues de entrar a mi for mi peer es %s", arreglo2[u].c_str()));
+//
+//              for(int u = 0; u< 9000 ; u++){
+//
+//
+            if(peer->getIPAddress().c_str() == arreglo2[0]){
 
-            if(peer->getIPAddress().c_str() == arreglo2[u]){ //asi estaba antes y no funcionó
- //               if(arreglo1[t] == arreglo2[u]){
                 //agrego al peer a la lista
-                A2_LOG_DEBUG(fmt("Acabo de añadir the real un peer %s", arreglo2[u].c_str()));
+
                   unusedPeers_.push_front(peer);
                   addUniqPeer(peer);
                   ++added;
-                   u++;  /////////////aQUI ESATA DE NUEVO ESTE CONTADORRR
-
+//          /////////////aQUI ESATA DE NUEVO ESTE CONTADORRR
+//                      A2_LOG_DEBUG(fmt("Acabo de añadir the real un peer %s", arreglo1[u].c_str()));
+//                    t++;
             }
-            } //cierra el ultimo for
+//             else{
+//
+//             isBadPeer(peer->getIPAddress());
+//
+//             }
+//            }
+//
+//
+//}
+//
+//
+//    }
 
-    } //cerrar el foor
-////////////////////// AQUI TERMINAR MI FOR
+}
 
+
+}
 ////////////////////////////////////////AQUI TERMINA MI PROGRAMA!! //////
 
   const size_t peerListSize = unusedPeers_.size();
@@ -509,7 +418,8 @@ void DefaultPeerStorage::returnPeer(const std::shared_ptr<Peer>& peer)
   if(usedPeers_.erase(peer)) {
     onReturningPeer(peer);
     onErasingPeer(peer);
-  } else {
+  }
+  else {
     A2_LOG_DEBUG(fmt("Cannot find peer %s:%u in usedPeers_",
                      peer->getIPAddress().c_str(), peer->getPort()));
   }
