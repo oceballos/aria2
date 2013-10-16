@@ -99,7 +99,7 @@ bool PeerAbstractCommand::execute()
         (fmt(MSG_NETWORK_PROBLEM,
              socket_->getSocketError().c_str()));
     }
-    if(checkPoint_.difference(global::wallclock()) >= timeout_) {
+    if(checkPoint_.difference(global::wallclock()) >= timeout_+20300) {
       throw DL_ABORT_EX(EX_TIME_OUT);
     }
     return executeInternal();

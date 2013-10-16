@@ -381,7 +381,7 @@ void DefaultBtAnnounce::processUDPTrackerResponse
   A2_LOG_DEBUG(fmt("Incomplete:%d", reply->leechers));
   if(!btRuntime_->isHalt() && btRuntime_->lessThanMinPeers()) {
 
-    std::string arregloudp[5000];
+    std::string arregloudp[9000];
     int tudp = 0;
 
 
@@ -392,7 +392,7 @@ void DefaultBtAnnounce::processUDPTrackerResponse
 //
 //
     int sumudp =0;
-    string arregloudp[1000];
+//    string arregloudp[5000];
     int contudp = 0; // para llevar el numero del arreglo
 //
     string sub_strudp;

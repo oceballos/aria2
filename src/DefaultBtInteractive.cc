@@ -162,7 +162,7 @@ std::unique_ptr<BtHandshakeMessage> DefaultBtInteractive::receiveHandshake
                   peer_->getIPAddress().c_str(), peer_->getPort(),
                   message->toString().c_str()));
 
-            A2_LOG_DEBUG(fmt("AQUI un handshake ip: %s.", peer_->getIPAddress().c_str()));
+            A2_LOG_NOTICE(fmt("AQUI SE LOGRÓ! un handshake ip: %s.", peer_->getIPAddress().c_str()));
 
   return message;
 }
@@ -452,7 +452,7 @@ void DefaultBtInteractive::checkActiveInteraction()
   // To allow aria2 to accept mutially interested peer, disconnect unintersted
   // peer.
   {
-    const time_t interval = 30;
+    const time_t interval = 500;
     if(!peer_->amInterested() && !peer_->peerInterested() &&
        inactiveTime >= interval) {
       peer_->setDisconnectedGracefully(true);
