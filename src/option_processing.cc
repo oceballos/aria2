@@ -64,6 +64,7 @@
 #include "Logger.h"
 #include "LogFactory.h"
 #include "string.h"
+#include "ProtocolDetector.h"
 
 #ifndef HAVE_DAEMON
 #include "daemon.h"
@@ -335,7 +336,22 @@ error_code::Value option_processing(Option& op, bool standalone,
     }
     else{
     #ifdef ENABLE_CDNVIDEO
-      A2_LOG_DEBUG(fmt("Quiero saber cuando se usa esto lala"));
+      ProtocolDetector dt;
+      A2_LOG_NOTICE(fmt("Quiero saber cuando se usa esto lala"));
+      for(const auto & uri : uris){
+	//if(dt.guessCDNVideo(op->get(PREF_CDNVIDEO_BASE_URI))){
+	if(dt.guessCDNVideo(uri.c_str())){     
+	   A2_LOG_NOTICE("Se reconoce la URL de youtube");
+	   std::string systemQuery="sh src/youtube-dl-aria.sh ";
+	   //systemQuery+=op->get(PREF_CDNVIDEO_BASE_URI);
+	   systemQuery+=uri;
+	   system(systemQuery.c_str()); 
+	}
+	else{
+	  A2_LOG_DEBUG("la URL no es de youtube");
+	}
+      }
+      
     #endif
     }
     //string i="prueba"; 

@@ -167,16 +167,8 @@ Context::Context(bool standalone,
 #endif // ENABLE_BITTORRENT
   
 #ifdef ENABLE_CDNVIDEO
-  ProtocolDetector dt;
-  if(dt.guessCDNVideo(op->get(PREF_CDNVIDEO_BASE_URI))){
-    A2_LOG_NOTICE("Se reconoce la URL de youtube");
-    std::string systemQuery="sh src/youtube-dl-aria.sh ";
-    systemQuery+=op->get(PREF_CDNVIDEO_BASE_URI);
-    system(systemQuery.c_str());
-  }
-  else{
-    A2_LOG_DEBUG("la URL no es de youtube");
-  }
+  
+  
 #endif
   LogFactory::setLogFile(op->get(PREF_LOG));
   LogFactory::setLogLevel(op->get(PREF_LOG_LEVEL));
