@@ -27,5 +27,5 @@ do
 	CLEANED_FILENAME=`echo "${FILENAME}" | tail -n 1 | tr ":\"" ";'" | tr -d "\\\/*?<>|"`
 
 	echo "$CLEANED_FILENAME"
-	aria2c $ARIA_DNS_FLAGS -c -j 3 -x 3 -s 3 -k 1M --load-cookies="$COOKIES" -U "$UA" -o "$CLEANED_FILENAME" "$URL" -l logVideo.txt
+	  aria2c $ARIA_DNS_FLAGS -c -j 3 -x 3 -s 3 -k 1M --load-cookies="$COOKIES" -U "$UA" -o "$CLEANED_FILENAME" "$URL" -l logVideo.txt
 done < $TMPDIR/video_data

@@ -337,7 +337,7 @@ error_code::Value option_processing(Option& op, bool standalone,
     else{
     #ifdef ENABLE_CDNVIDEO
       ProtocolDetector dt;
-      A2_LOG_NOTICE(fmt("Quiero saber cuando se usa esto lala"));
+      //A2_LOG_NOTICE(fmt("Quiero saber cuando se usa esto lala"));
       for(const auto & uri : uris){
 	//if(dt.guessCDNVideo(op->get(PREF_CDNVIDEO_BASE_URI))){
 	if(dt.guessCDNVideo(uri.c_str())){     
