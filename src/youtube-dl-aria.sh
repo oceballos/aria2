@@ -1,11 +1,10 @@
 #!/bin/sh
 
 UA=`youtube-dl --dump-user-agent`
-#TMPDIR=`mktemp -d`
-TMPDIR='videoInfo'
+TMPDIR=`mktemp -d`
 COOKIES="$TMPDIR/cookies"
 
-#trap "rm -rf $TMPDIR" 0
+trap "rm -rf $TMPDIR" 0
 
 ARIA_DNS_FLAGS=""
 aria2c -h#all|grep -- '--async-dns' >/dev/null 2>&1
@@ -19,13 +18,10 @@ fi
 # /all/ of its work.
 youtube-dl -o "[%(upload_date)s][%(id)s] %(title)s (by %(uploader)s).%(ext)s" --get-url --get-filename --cookies=${COOKIES} "$@" > ${TMPDIR}/video_data
 
-#for i in $(seq 1 7) ; do cat video_data ; done
-
-
 while read URL && read FILENAME
 do
 	CLEANED_FILENAME=`echo "${FILENAME}" | tail -n 1 | tr ":\"" ";'" | tr -d "\\\/*?<>|"`
 
 	echo "$CLEANED_FILENAME"
-	  aria2c $ARIA_DNS_FLAGS -c -j 3 -x 3 -s 3 -k 1M --load-cookies="$COOKIES" -U "$UA" -o "$CLEANED_FILENAME" "$URL" -l logVideo.txt
+	aria2c $ARIA_DNS_FLAGS -c -j 3 -x 3 -s 3 -k 1M --load-cookies="$COOKIES" -U "$UA" -o "$CLEANED_FILENAME" "$URL"
 done < $TMPDIR/video_data
