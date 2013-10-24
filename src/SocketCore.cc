@@ -454,13 +454,14 @@ void SocketCore::establishConnection(const std::string& host, uint16_t port,
       setTcpNodelay(true);
     }
     if(connect(fd, rp->ai_addr, rp->ai_addrlen) == -1 &&
-       SOCKET_ERRNO != A2_EINPROGRESS) {
+       SOCKET_ERRNO != A2_EINPROGRESS) {      
       errNum = SOCKET_ERRNO;
       error = errorMsg(errNum);
       CLOSE(sockfd_);
       sockfd_ = (sock_t) -1;
       continue;
     }
+    A2_LOG_DEBUG(fmt("Se conecto en BTAnounce a:%s : %i",host.c_str(),port));
     // TODO at this point, connection may not be established and it may fail
     // later. In such case, next ai_addr should be tried.
     break;

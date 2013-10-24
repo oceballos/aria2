@@ -39,6 +39,9 @@
 #include "TimerA2.h"
 #include "AnnounceList.h"
 
+//esto es pal socket mula
+#include <netinet/in.h>
+
 namespace aria2 {
 
 class DownloadContext;
@@ -47,6 +50,7 @@ class BtRuntime;
 class PieceStorage;
 class PeerStorage;
 class Randomizer;
+
 
 class DefaultBtAnnounce : public BtAnnounce {
 private:

@@ -116,6 +116,7 @@ Metalink2RequestGroup::generate
  const std::shared_ptr<Option>& option,
  const std::string& baseUri)
 {
+  A2_LOG_DEBUG(fmt("Entra por metalinkFile"));
   std::vector<std::shared_ptr<RequestGroup>> tempgroups;
   createRequestGroup(tempgroups,
                      metalink::parseAndQuery(metalinkFile, option.get(),
@@ -141,6 +142,7 @@ Metalink2RequestGroup::generate
  const std::shared_ptr<Option>& option,
  const std::string& baseUri)
 {
+  A2_LOG_DEBUG(fmt("Entra por binaryStream"));
   std::vector<std::shared_ptr<RequestGroup>> tempgroups;
   createRequestGroup(tempgroups,
                      metalink::parseAndQuery(binaryStream.get(), option.get(),
