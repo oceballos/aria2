@@ -43,6 +43,10 @@
 #include "BinaryStream.h"
 #include "MetalinkMetaurl.h"
 
+#include "Logger.h"
+#include "fmt.h"
+#include "LogFactory.h"
+
 namespace aria2 {
 
 namespace metalink {
@@ -65,6 +69,7 @@ std::vector<std::unique_ptr<MetalinkEntry>> parseAndQuery
  const Option* option,
  const std::string& baseUri)
 {
+  A2_LOG_NOTICE(fmt("Parsing Metalink file, filename: %s baseUri: %s",filename,baseUri));
   return query(parseFile(filename, baseUri), option);
 }
 

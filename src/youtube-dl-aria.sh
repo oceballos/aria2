@@ -1,10 +1,12 @@
 #!/bin/sh
 
 UA=`youtube-dl --dump-user-agent`
-TMPDIR=`mktemp -d`
+#TMPDIR=`mktemp -d`
+mkdir videoInfo
+TMPDIR="videoInfo"
 COOKIES="$TMPDIR/cookies"
 
-trap "rm -rf $TMPDIR" 0
+#trap "rm -rf $TMPDIR" 0
 
 ARIA_DNS_FLAGS=""
 aria2c -h#all|grep -- '--async-dns' >/dev/null 2>&1
@@ -45,7 +47,7 @@ echo "    <description>Download youtbe videos using aria2c</description>" >>vide
 echo "    <tags>youtube, download, video</tags>" >>video.metalink
 echo "    <files>">> video.metalink
 
-VIDEONAME=`cat videoInfo/video_data | grep "\["`
+VIDEONAME=`cat ${TMPDIR}/video_data | grep "\["`
 echo "        <file name=\"$VIDEONAME\">">> video.metalink
 #echo "     <size></size>">> video.metalink
 #echo "     <verification></verification>">> video.metalink
@@ -54,7 +56,8 @@ echo "            <resources>">> video.metalink
 for i in `seq 1 3`
 do
    URIAUX=`cat ${TMPDIR}/video_data |grep http:// | sed 's/http:\/\/r[0-9]/http:\/\/r'$i'/'`
-   echo "                <url type=\"http\">\"$URIAUX\"</url>" >> video.metalink
+   SHORTURI=`surl -c$URIAUX -stinyurl.com`;
+   echo "                <url type=\"http\">$SHORTURI</url>" >> video.metalink
 done
 echo "     </resources>">> video.metalink
 echo "   </file>" >> video.metalink
@@ -66,5 +69,6 @@ do
 	CLEANED_FILENAME=`echo "${FILENAME}" | tail -n 1 | tr ":\"" ";'" | tr -d "\\\/*?<>|"`
 
 	echo "$CLEANED_FILENAME"
-	aria2c $ARIA_DNS_FLAGS -c -j 3 -x 3 -s 3 -k 1M --load-cookies="$COOKIES" -U "$UA" -o "$CLEANED_FILENAME" "$URL"
+	#aria2c $ARIA_DNS_FLAGS -c -j 3 -x 3 -s 3 -k 1M --load-cookies="$COOKIES" -U "$UA" -o "$CLEANED_FILENAME" "$URL"
+	 aria2c $ARIA_DNS_FLAGS -c -j 3 -x 3 -s 3 -k 1M --load-cookies="$COOKIES" -U "$UA" -o "$CLEANED_FILENAME" -M video.metalink -l LogMETA
 done < $TMPDIR/video_data

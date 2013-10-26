@@ -116,12 +116,13 @@ Metalink2RequestGroup::generate
  const std::shared_ptr<Option>& option,
  const std::string& baseUri)
 {
-  A2_LOG_DEBUG(fmt("Entra por metalinkFile"));
+    A2_LOG_DEBUG(fmt("Entra por metalinkFile"));
   std::vector<std::shared_ptr<RequestGroup>> tempgroups;
   createRequestGroup(tempgroups,
                      metalink::parseAndQuery(metalinkFile, option.get(),
                                              baseUri),
                      option);
+
   std::shared_ptr<MetadataInfo> mi;
   if(metalinkFile == DEV_STDIN) {
     mi = std::make_shared<MetadataInfo>();
@@ -164,6 +165,7 @@ Metalink2RequestGroup::createRequestGroup
     A2_LOG_NOTICE(EX_NO_RESULT_WITH_YOUR_PREFS);
     return;
   }
+  A2_LOG_NOTICE(fmt("Entra al metalink createRequestGroup"));
   std::vector<std::string> locations;
   if(optionTemplate->defined(PREF_METALINK_LOCATION)) {
     auto& loc = optionTemplate->get(PREF_METALINK_LOCATION);
