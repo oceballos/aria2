@@ -461,6 +461,7 @@ void SocketCore::establishConnection(const std::string& host, uint16_t port,
       sockfd_ = (sock_t) -1;
       continue;
     }
+	A2_LOG_NOTICE(fmt("SE CONECTOO A %s", host.c_str()))
     // TODO at this point, connection may not be established and it may fail
     // later. In such case, next ai_addr should be tried.
     break;

@@ -72,6 +72,9 @@ using std::ifstream;
 #include <vector>
 #include<sstream>
 
+// #define UMBRAL 7
+// #define PROMEDIO 7
+
 namespace aria2 {
 
 DefaultBtAnnounce::DefaultBtAnnounce
@@ -87,7 +90,9 @@ DefaultBtAnnounce::DefaultBtAnnounce
     announceList_(bittorrent::getTorrentAttrs(downloadContext)->announceList),
     option_(option),
     randomizer_(SimpleRandomizer::getInstance().get()),
-    tcpPort_(0)
+    tcpPort_(0),
+    UMBRAL_(7),
+    PROMEDIO_(7)
 {}
 
 DefaultBtAnnounce::~DefaultBtAnnounce() {
@@ -433,7 +438,28 @@ void DefaultBtAnnounce::processUDPTrackerResponse
                                 }
 	}
 
-	                if(sumudp<6){
+
+                  // if(sumudp < UMBRAL){
+
+                  // PROMEDIO = (PROMEDIO+sumudp)/2;
+
+                  // if((UMBRAL-PROMEDIO)>1){
+
+                  //     UMBRAL--;
+            //      A2_LOG_NOTICE(fmt("El umbral es %i", (int)UMBRAL_));
+
+                  if(sumudp  < UMBRAL_){
+
+                  
+                    PROMEDIO_ = (PROMEDIO_+sumudp)/2;
+
+                    if ((UMBRAL_-PROMEDIO_)>1) 
+                       UMBRAL_=UMBRAL_-1;
+                  
+                    else if((PROMEDIO_-UMBRAL_)>1)
+                     UMBRAL_=UMBRAL_+1;   
+
+                    
 
                 stringstream streamudp; //Esto es para pasar de int a string //
                 string sumaudp;
