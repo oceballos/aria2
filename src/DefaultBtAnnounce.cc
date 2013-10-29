@@ -446,20 +446,23 @@ void DefaultBtAnnounce::processUDPTrackerResponse
                   // if((UMBRAL-PROMEDIO)>1){
 
                   //     UMBRAL--;
-            //      A2_LOG_NOTICE(fmt("El umbral es %i", (int)UMBRAL_));
+                 A2_LOG_NOTICE(fmt("El umbral es %i", (int)UMBRAL_));
 
-                  if(sumudp  < UMBRAL_){
+                  PROMEDIO_ = (PROMEDIO_+sumudp)/2;
 
+
+                  float resta = UMBRAL_ - PROMEDIO_;
+
+
+                  if (resta > 1) 
+                   UMBRAL_=UMBRAL_-1;
                   
-                    PROMEDIO_ = (PROMEDIO_+sumudp)/2;
-
-                    if ((UMBRAL_-PROMEDIO_)>1) 
-                       UMBRAL_=UMBRAL_-1;
-                  
-                    else if((PROMEDIO_-UMBRAL_)>1)
+                    else if(resta < -1)
                      UMBRAL_=UMBRAL_+1;   
 
-                    
+
+                  if(sumudp  <= UMBRAL_){
+                  
 
                 stringstream streamudp; //Esto es para pasar de int a string //
                 string sumaudp;
