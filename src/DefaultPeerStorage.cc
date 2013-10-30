@@ -243,7 +243,7 @@ void DefaultPeerStorage::addPeer(const std::vector<std::shared_ptr<Peer> >& peer
 
 if(myfile2.is_open())//si el archivo esta abierto
 {
-while(!myfile2.eof()) // mientras NO sea el final del arc hivo
+while(myfile2.eof()) // mientras NO sea el final del arc hivo
 {
    myfile2 >> temp2;
    arreglo2[cont2] =  temp2;

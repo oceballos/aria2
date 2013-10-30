@@ -162,7 +162,7 @@ std::unique_ptr<BtHandshakeMessage> DefaultBtInteractive::receiveHandshake
                   peer_->getIPAddress().c_str(), peer_->getPort(),
                   message->toString().c_str()));
 
-            A2_LOG_NOTICE(fmt("AQUI SE LOGRÓ! un handshake ip: %s.", peer_->getIPAddress().c_str()));
+            A2_LOG_NOTICE(fmt("AQUI SE LOGRÓ! un handshake ip: %s", peer_->getIPAddress().c_str()));
 
   return message;
 }
