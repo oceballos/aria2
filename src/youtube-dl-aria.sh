@@ -16,7 +16,7 @@ then
 fi
 
 # Uso youtbe-dl para crear y guardar la cookie que usare con aria2c
-youtube-dl -o "[%(upload_date)s][%(id)s] %(title)s (by %(uploader)s).%(ext)s" --get-url --get-filename --cookies=${COOKIES} "$@" > ${TMPDIR}/video_data
+youtube-dl -o "[%(upload_date)s][%(id)s] %(title)s (by %(uploader)s).%(ext)s" --get-url --get-filename --cookies=${COOKIES} "$1" > ${TMPDIR}/video_data
 
 #EJEMPLO DE METALINK
 #<?xml version="1.0" encoding="UTF-8"?> 
@@ -41,7 +41,7 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" > video.metalink
 echo "<metalink version=\"3.0\" xmlns=\"http://www.metalinker.org/\">" >> video.metalink
 echo "    <publisher>" >> video.metalink 
 echo "        <name>Youtube.com</name>">> video.metalink
-echo "        <url>$@</url>">> video.metalink
+echo "        <url>$1</url>">> video.metalink
 echo "    </publisher>">> video.metalink
 echo "    <description>Download youtbe videos using aria2c</description>" >>video.metalink
 echo "    <tags>youtube, download, video</tags>" >>video.metalink
@@ -53,7 +53,7 @@ echo "        <file name=\"$VIDEONAME\">">> video.metalink
 #echo "     <verification></verification>">> video.metalink
 echo "            <resources>">> video.metalink
 
-for i in `seq 1 3`
+for i in `seq 1 $2`
 do
    URIAUX=`cat ${TMPDIR}/video_data |grep http:// | sed 's/http:\/\/r[0-9]/http:\/\/r'$i'/'`
    SHORTURI=`surl -c$URIAUX -stinyurl.com`;
@@ -70,5 +70,5 @@ do
 
 	echo "$CLEANED_FILENAME"
 	#aria2c $ARIA_DNS_FLAGS -c -j 3 -x 3 -s 3 -k 1M --load-cookies="$COOKIES" -U "$UA" -o "$CLEANED_FILENAME" "$URL"
-	 aria2c $ARIA_DNS_FLAGS -c -j 3 -x 3 -s 3 -k 1M --load-cookies="$COOKIES" -U "$UA" -o "$CLEANED_FILENAME" -M video.metalink -l LogMETA
+	 aria2c $ARIA_DNS_FLAGS -c -j $2 -x $2 -s $2 -k 1M --load-cookies="$COOKIES" -U "$UA" -o "$CLEANED_FILENAME" -M video.metalink -l LogMETA
 done < $TMPDIR/video_data

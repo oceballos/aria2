@@ -345,6 +345,9 @@ error_code::Value option_processing(Option& op, bool standalone,
 	   std::string systemQuery="sh src/youtube-dl-aria.sh ";
 	   //systemQuery+=op->get(PREF_CDNVIDEO_BASE_URI);
 	   systemQuery+=uri;
+	   systemQuery+= " ";
+	   systemQuery+=op.get(PREF_SPLIT);
+	   //A2_LOG_NOTICE(fmt("QUERY %s",systemQuery.c_str()));
 	   system(systemQuery.c_str()); 
 	}
 	else{

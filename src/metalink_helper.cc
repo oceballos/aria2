@@ -69,7 +69,7 @@ std::vector<std::unique_ptr<MetalinkEntry>> parseAndQuery
  const Option* option,
  const std::string& baseUri)
 {
-  A2_LOG_NOTICE(fmt("Parsing Metalink file, filename: %s baseUri: %s",filename,baseUri));
+  A2_LOG_NOTICE(fmt("Parsing Metalink file, filename: %s baseUri: %s",filename.c_str(),baseUri.c_str()));
   return query(parseFile(filename, baseUri), option);
 }
 

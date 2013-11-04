@@ -461,11 +461,7 @@ void SocketCore::establishConnection(const std::string& host, uint16_t port,
       sockfd_ = (sock_t) -1;
       continue;
     }
-<<<<<<< HEAD
     A2_LOG_DEBUG(fmt("Se conecto en BTAnounce a:%s : %i",host.c_str(),port));
-=======
-	A2_LOG_NOTICE(fmt("SE CONECTOO A %s", host.c_str()))
->>>>>>> 1e075bcff8fd5d7c9d65bd95185bd042eed79258
     // TODO at this point, connection may not be established and it may fail
     // later. In such case, next ai_addr should be tried.
     break;
