@@ -18,24 +18,6 @@ fi
 # Uso youtbe-dl para crear y guardar la cookie que usare con aria2c
 youtube-dl -o "[%(upload_date)s][%(id)s] %(title)s (by %(uploader)s).%(ext)s" --get-url --get-filename --cookies=${COOKIES} "$1" > ${TMPDIR}/video_data
 
-#EJEMPLO DE METALINK
-#<?xml version="1.0" encoding="UTF-8"?> 
-#<metalink version="3.0" xmlns="http://www.metalinker.org/">
-#    <publisher>
-#        <name>Petar Marić</name>
-#        <url>http://www.petarmaric.com/</url>
-#    </publisher>
-#    <description>Download TED talks with English subtitles encoded in high quality</description>
-#    <tags>TED, download, video</tags>
-#    <files>
-#        <file name="Christopher deCharms - A look inside the brain in real time.mp4">
-#            <resources>
-#                <url type="http">http://download.ted.com/talks/ChristopherdeCharms_2008-480p-en.mp4?apikey=TEDDOWNLOAD</url>
-#            </resources>
-#        </file>
-#    </files>
-#</metalink>
-
 
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" > video.metalink
 echo "<metalink version=\"3.0\" xmlns=\"http://www.metalinker.org/\">" >> video.metalink
