@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 UA=`youtube-dl --dump-user-agent`
 #TMPDIR=`mktemp -d`
@@ -37,7 +37,7 @@ echo "            <resources>">> video.metalink
 
 for i in `seq 1 $2`
 do
-   URIAUX=`cat ${TMPDIR}/video_data |grep http:// | sed 's/http:\/\/r[0-9]/http:\/\/r'$i'/'`
+   URIAUX=`cat ${TMPDIR}/video_data |grep http:// | sed  's/http:\/\/r[0-9]*-/http:\/\/r'$i'-/'`
    SHORTURI=`surl -c$URIAUX -stinyurl.com`;
    echo "                <url type=\"http\">$SHORTURI</url>" >> video.metalink
 done
