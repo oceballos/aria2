@@ -68,6 +68,12 @@
 # include "BtRegistry.h"
 #endif // ENABLE_BITTORRENT
 
+//cosas para loguear
+#include "LogFactory.h"
+#include "Logger.h"
+#include "fmt.h"
+#include "A2STR.h"
+
 namespace aria2 {
 
 std::string SizeFormatter::operator()(int64_t size) const
@@ -372,6 +378,7 @@ ConsoleStatCalc::calculateStat(const DownloadEngine* e)
     if(truncate_ && readout.size() > cols) {
       readout[cols] = '\0';
     }
+    A2_LOG_DEBUG(fmt("%s",readout.c_str()));
     global::cout()->write(readout.c_str());
     global::cout()->flush();
   } else {

@@ -67,6 +67,8 @@ private:
   bool readoutVisibility_;
   bool truncate_;
   bool isTTY_;
+  std::string consoleDlText_;
+  
 public:
   ConsoleStatCalc(time_t summaryInterval, bool humanReadable = true);
 
