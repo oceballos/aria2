@@ -187,7 +187,7 @@ void DefaultPeerStorage::addPeer(const std::vector<std::shared_ptr<Peer> >& peer
 //
 // //   system("mkdir tracker");
 //
-    string hola2 = "echo hola > trace3.txt"; //ping google.com -c 3
+    string hola2 = "echo trace3 > trace3.txt"; //ping google.com -c 3
     system (hola2.c_str());
 //
 //    ifstream myfile;
@@ -457,4 +457,5 @@ void DefaultPeerStorage::setBtRuntime(const std::shared_ptr<BtRuntime>& btRuntim
 }
 
 } // namespace aria2
+
 
